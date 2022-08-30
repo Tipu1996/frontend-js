@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 
 const slice = createSlice({
@@ -8,10 +8,14 @@ const slice = createSlice({
         countriesReceived: (countries, action) => {
             countries.list = action.payload
             countries.fetch = true
+            console.log("in countriesReceived");
         },
 
         countriesNotReceived: (countries, action) => { },
     },
 })
 
-export default slice.reducer
+const reducer = slice.reducer;
+const countries = slice.getInitialState();
+
+export { reducer, countries }
