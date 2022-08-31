@@ -1,6 +1,17 @@
+//import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import * as actions from "../api"
 
+/*
+const fetchCountries = createAsyncThunk(
+    'users/fetchAllCountries',
+    async (url, thunkAPI) => {
+        const response = await axios.request({ url })
+        return response.data
+    }
+)
+export default fetchCountries;
+*/
 const api =
     ({ dispatch }) =>
         (next) =>
@@ -22,4 +33,5 @@ const api =
                     if (onError) dispatch({ type: onError, payload: error })
                 }
             }
+
 export default api

@@ -1,25 +1,16 @@
-//import { countries } from "../store/countries"
-import store from "../store/store";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCountries } from '../store/countries';
+//import { recoverCountries } from '../store/countries';
+
 const Table = () => {
-    let list = [];
-    store.getState(list, true);
-    console.log(list);
-    return (
-        <table>
-            <tbody>
-                <tr>
-                    <td>Alfreds Futterkiste</td>
-                    <td>Maria Anders</td>
-                    <td>Germany</td>
-                </tr>
-                <tr>
-                    <td>Centro comercial Moctezuma</td>
-                    <td>Francisco Chang</td>
-                    <td>Mexico</td>
-                </tr>
-            </tbody>
-        </table>
-    )
+    const dispatch = useDispatch()
+    //const countries = useSelector((state) => state.countries.list)
+    useEffect(() => {
+        dispatch(getCountries())
+    }, [dispatch])
+    return (<h1>Printing</h1>
+    );
 }
 
 export default Table

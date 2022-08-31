@@ -1,10 +1,9 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-import { reducer } from './countries'
-import api from './middleware/api'
+import { configureStore } from '@reduxjs/toolkit'
+import countries from './countries'
 
-export default function configStore() {
-    return configureStore({
-        reducer,
-        middleware: [...getDefaultMiddleware(), api],
-    })
-}
+
+const store = configureStore({
+    reducer: countries,
+    // middleware: [...getDefaultMiddleware(), api],
+})
+export default store

@@ -1,21 +1,41 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
+
+export const getCountries = createAsyncThunk(
+    "countries/getCountries",
+    async () => {
+        return axios.request("https://restcountries.com/v3.1/all").then(response => response.data)
+    }
+)
 
 
 const slice = createSlice({
     name: 'countries',
-    initialState: { list: [], fetch: false },
-    reducers: {
-        countriesReceived: (countries, action) => {
-            countries.list = action.payload
-            countries.fetch = true
-            console.log("in countriesReceived");
-        },
+    initialState: { list: [], status: null },
+    // reducers: {
+    //     countriesReceived: (state, action) => {
+    //         state.list = action.payload
+    //         state.status = "fetched"
+    //         console.log("in countriesReceived");
+    //     },
 
-        countriesNotReceived: (countries, action) => { },
+    //     countriesNotReceived: (countries, action) => { },
+    // },
+    extraReducers: {
+        [getCountries.pending]: (state) => {
+            state.status = "loading"
+        },
+        [getCountries.fulfilled]: (state, { payload }) => {
+            state.list = payload
+            state.status = "success"
+        },
+        [getCountries.rejected]: (state) => {
+            state.status = "failed"
+        }
     },
 })
 
-const reducer = slice.reducer;
-const countries = slice.getInitialState();
+//export const recoverCountries = ({ countries }) => countries.list
 
-export { reducer, countries }
+export default slice.reducer
